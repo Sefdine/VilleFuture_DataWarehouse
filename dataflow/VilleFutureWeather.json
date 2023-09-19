@@ -17,6 +17,13 @@
 						"type": "DatasetReference"
 					},
 					"name": "DimRegion"
+				},
+				{
+					"dataset": {
+						"referenceName": "WeatherMetrics",
+						"type": "DatasetReference"
+					},
+					"name": "WeatherMetrics"
 				}
 			],
 			"sinks": [],
@@ -35,7 +42,19 @@
 				"     ),",
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     ignoreNoFilesFound: false) ~> DimRegion"
+				"     ignoreNoFilesFound: false) ~> DimRegion",
+				"source(output(",
+				"          DateID as string,",
+				"          RegionID as string,",
+				"          AverageTemperature as string,",
+				"          Humidity as string,",
+				"          WindSpeed as string,",
+				"          Rainfall as string,",
+				"          SunshineHours as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> WeatherMetrics"
 			]
 		}
 	}
