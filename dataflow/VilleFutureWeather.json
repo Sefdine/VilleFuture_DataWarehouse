@@ -10,6 +10,13 @@
 						"type": "DatasetReference"
 					},
 					"name": "DimDate"
+				},
+				{
+					"dataset": {
+						"referenceName": "DimRegion",
+						"type": "DatasetReference"
+					},
+					"name": "DimRegion"
 				}
 			],
 			"sinks": [],
@@ -21,7 +28,14 @@
 				"     ),",
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     ignoreNoFilesFound: false) ~> DimDate"
+				"     ignoreNoFilesFound: false) ~> DimDate",
+				"source(output(",
+				"          RegionID as string,",
+				"          RegionName as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> DimRegion"
 			]
 		}
 	}
