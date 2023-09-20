@@ -1,0 +1,9 @@
+{
+	"name": "DateHierarchy",
+	"properties": {
+		"type": "WranglingDataFlow",
+		"typeProperties": {
+			"sources": []
+		}
+	}
+}
