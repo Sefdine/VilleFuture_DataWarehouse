@@ -26,7 +26,29 @@
 					"name": "WeatherMetrics"
 				}
 			],
-			"sinks": [],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "dimDateCleaned",
+						"type": "DatasetReference"
+					},
+					"name": "DimDateCleaned"
+				},
+				{
+					"dataset": {
+						"referenceName": "dimRegionCleaned",
+						"type": "DatasetReference"
+					},
+					"name": "DimRegionCleaned"
+				},
+				{
+					"dataset": {
+						"referenceName": "WeatherMetricsCleaned",
+						"type": "DatasetReference"
+					},
+					"name": "WeatherMetricsCleaned"
+				}
+			],
 			"transformations": [],
 			"scriptLines": [
 				"source(output(",
@@ -54,7 +76,22 @@
 				"     ),",
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     ignoreNoFilesFound: false) ~> WeatherMetrics"
+				"     ignoreNoFilesFound: false) ~> WeatherMetrics",
+				"DimDate sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     partitionFileNames:['DimDateCleaned.csv'],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> DimDateCleaned",
+				"DimRegion sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     partitionFileNames:['DimRegionCleaned.csv'],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> DimRegionCleaned",
+				"WeatherMetrics sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     partitionFileNames:['WeatherMetricsCleaned.csv'],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> WeatherMetricsCleaned"
 			]
 		}
 	}
