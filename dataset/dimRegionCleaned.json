@@ -13,7 +13,6 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": "DimRegionCleaned",
 				"container": "output"
 			},
 			"columnDelimiter": ",",
