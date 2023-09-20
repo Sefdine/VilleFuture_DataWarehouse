@@ -2,7 +2,7 @@
 	"name": "WeatherMetrics",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "BlobStorageService",
+			"referenceName": "blobstorageconnection",
 			"type": "LinkedServiceReference"
 		},
 		"annotations": [],
