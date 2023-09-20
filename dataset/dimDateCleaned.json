@@ -2,7 +2,7 @@
 	"name": "dimDateCleaned",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "BlobStorageService",
+			"referenceName": "blobstorageconnection",
 			"type": "LinkedServiceReference"
 		},
 		"folder": {
@@ -12,7 +12,8 @@
 		"type": "DelimitedText",
 		"typeProperties": {
 			"location": {
-				"type": "AzureBlobStorageLocation"
+				"type": "AzureBlobStorageLocation",
+				"container": "output"
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",
