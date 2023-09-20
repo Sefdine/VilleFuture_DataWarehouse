@@ -2,7 +2,7 @@
 	"name": "DimRegion",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "BlobStorageService",
+			"referenceName": "blobstorageconnection",
 			"type": "LinkedServiceReference"
 		},
 		"annotations": [],
