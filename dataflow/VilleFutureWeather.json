@@ -35,6 +35,10 @@
 					"name": "DimDateCleaned"
 				},
 				{
+					"dataset": {
+						"referenceName": "dimRegionCleaned",
+						"type": "DatasetReference"
+					},
 					"name": "DimRegionCleaned"
 				}
 			],
