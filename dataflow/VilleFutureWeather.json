@@ -76,6 +76,7 @@
 				"     skipDuplicateMapOutputs: true) ~> DimDateCleaned",
 				"DimRegion sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
+				"     partitionFileNames:['DimRegionCleaned'],",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> DimRegionCleaned"
 			]
