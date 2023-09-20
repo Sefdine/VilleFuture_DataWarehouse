@@ -72,6 +72,7 @@
 				"     ignoreNoFilesFound: false) ~> WeatherMetrics",
 				"DimDate sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
+				"     partitionFileNames:['DimDateCleaned'],",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> DimDateCleaned",
 				"DimRegion sink(allowSchemaDrift: true,",
