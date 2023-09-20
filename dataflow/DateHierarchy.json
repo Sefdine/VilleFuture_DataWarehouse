@@ -13,7 +13,7 @@
 					}
 				}
 			],
-			"script": "section Section1;\r\nshared DimDate = let AdfDoc = AzureStorage.BlobContents(\"https://sefdinenassufblobcontain.blob.core.windows.net/input/datedim-6506f8f25d26e398055394.csv\"),Csv = Csv.Document(AdfDoc, [Delimiter = \",\", Encoding = TextEncoding.Utf8, QuoteStyle = QuoteStyle.Csv]), PromotedHeaders = Table.PromoteHeaders(Csv, [PromoteAllScalars = true]) in  PromotedHeaders;\r\nshared UserQuery = let Source = #\"DimDate\" in Source;\r\n",
+			"script": "section Section1;\r\nshared DimDate = let AdfDoc = AzureStorage.BlobContents(\"https://sefdinenassufblobcontain.blob.core.windows.net/input/datedim-6506f8f25d26e398055394.csv\"),Csv = Csv.Document(AdfDoc, [Delimiter = \",\", Encoding = TextEncoding.Utf8, QuoteStyle = QuoteStyle.Csv]), PromotedHeaders = Table.PromoteHeaders(Csv, [PromoteAllScalars = true]) in  PromotedHeaders;\r\nshared UserQuery = let Source = #\"DimDate\",\r\n  #\"Changed column type\" = Table.TransformColumnTypes(Source, {{\"DateID\", Int64.Type}, {\"Date\", type date}}) in #\"Changed column type\";\r\n",
 			"documentLocale": "en-us"
 		}
 	}
