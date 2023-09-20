@@ -40,6 +40,13 @@
 						"type": "DatasetReference"
 					},
 					"name": "DimRegionCleaned"
+				},
+				{
+					"dataset": {
+						"referenceName": "WeatherMetricsCleaned",
+						"type": "DatasetReference"
+					},
+					"name": "WeatherMetricsCleaned"
 				}
 			],
 			"transformations": [],
@@ -79,7 +86,12 @@
 				"     validateSchema: false,",
 				"     partitionFileNames:['DimRegionCleaned'],",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> DimRegionCleaned"
+				"     skipDuplicateMapOutputs: true) ~> DimRegionCleaned",
+				"WeatherMetrics sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     partitionFileNames:['WeatherMetricsCleaned'],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> WeatherMetricsCleaned"
 			]
 		}
 	}
