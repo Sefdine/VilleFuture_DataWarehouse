@@ -17,22 +17,36 @@
 						"type": "DatasetReference"
 					},
 					"name": "WeatherMetrics"
+				},
+				{
+					"dataset": {
+						"referenceName": "DimRegion",
+						"type": "DatasetReference"
+					},
+					"name": "DimRegion"
 				}
 			],
 			"sinks": [
 				{
 					"dataset": {
-						"referenceName": "dimDateCleaned",
+						"referenceName": "sefdinenassufAzureSynapseAnalyticsTable",
 						"type": "DatasetReference"
 					},
 					"name": "DimDateCleaned"
 				},
 				{
 					"dataset": {
-						"referenceName": "WeatherMetricsCleaned",
+						"referenceName": "AzureSynapseAnalyticsTableRegion",
 						"type": "DatasetReference"
 					},
 					"name": "WeatherMetricsCleaned"
+				},
+				{
+					"dataset": {
+						"referenceName": "AzureSynapseAnalyticsTable1",
+						"type": "DatasetReference"
+					},
+					"name": "DimRegionLoad"
 				}
 			],
 			"transformations": [
@@ -44,6 +58,9 @@
 				},
 				{
 					"name": "GenerateID"
+				},
+				{
+					"name": "ChangeType"
 				}
 			],
 			"scriptLines": [
@@ -66,6 +83,13 @@
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false) ~> WeatherMetrics",
+				"source(output(",
+				"          RegionID as string,",
+				"          RegionName as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> DimRegion",
 				"DimDate cast(output(",
 				"          DateID as integer,",
 				"          Date as date 'yyyy-MM-dd'",
@@ -77,16 +101,67 @@
 				"WeatherMetrics keyGenerate(output(ID as long),",
 				"     startAt: 1L,",
 				"     stepValue: 1L) ~> GenerateID",
+				"DimRegion cast(output(",
+				"          RegionID as integer",
+				"     ),",
+				"     errors: true) ~> ChangeType",
 				"DateHierarchy sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     partitionFileNames:['DimDateCleaned'],",
+				"     input(",
+				"          DateID as integer,",
+				"          Date as date,",
+				"          Year as integer,",
+				"          Month as integer,",
+				"          Day as integer",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     staged: true,",
+				"     allowCopyCommand: true,",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> DimDateCleaned",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> DimDateCleaned",
 				"GenerateID sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     partitionFileNames:['WeatherMetrics'],",
+				"     input(",
+				"          RegionID as integer,",
+				"          RegionName as string",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     staged: true,",
+				"     allowCopyCommand: true,",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> WeatherMetricsCleaned"
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> WeatherMetricsCleaned",
+				"ChangeType sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          ID as integer,",
+				"          DateID as integer,",
+				"          RegoinID as integer,",
+				"          AverageTemperature as integer,",
+				"          Humidity as integer,",
+				"          WindSpeed as integer,",
+				"          Rainfall as integer,",
+				"          SunchineHours as integer",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     staged: true,",
+				"     allowCopyCommand: true,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> DimRegionLoad"
 			]
 		}
 	}

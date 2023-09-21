@@ -1,0 +1,57 @@
+{
+	"name": "AzureSynapseAnalyticsTable1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "sefdinenassufAzureSynapseAnalytics",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlDWTable",
+		"schema": [
+			{
+				"name": "ID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "DateID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "RegoinID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "AverageTemperature",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "Humidity",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "WindSpeed",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "Rainfall",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "SunchineHours",
+				"type": "int",
+				"precision": 10
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "FactWeatherMetrics"
+		}
+	}
+}
