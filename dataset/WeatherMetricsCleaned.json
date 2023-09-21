@@ -13,6 +13,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
+				"fileName": "WeatherMetrics",
 				"container": "output"
 			},
 			"columnDelimiter": ",",
