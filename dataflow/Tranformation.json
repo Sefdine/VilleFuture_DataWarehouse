@@ -61,6 +61,9 @@
 				},
 				{
 					"name": "ChangeType"
+				},
+				{
+					"name": "SCD"
 				}
 			],
 			"scriptLines": [
@@ -106,6 +109,7 @@
 				"          RegionName as string",
 				"     ),",
 				"     errors: true) ~> ChangeType",
+				"ChangeType alterRow(upsertIf(1 == 1)) ~> SCD",
 				"DateHierarchy sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",
@@ -141,7 +145,7 @@
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
 				"     errorHandlingOption: 'stopOnFirstError') ~> WeatherMetricsCleaned",
-				"ChangeType sink(allowSchemaDrift: true,",
+				"SCD sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",
 				"          ID as integer,",
