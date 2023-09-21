@@ -1,0 +1,92 @@
+{
+	"name": "dataflow1",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DimDate",
+						"type": "DatasetReference"
+					},
+					"name": "DimDate"
+				},
+				{
+					"dataset": {
+						"referenceName": "WeatherMetrics",
+						"type": "DatasetReference"
+					},
+					"name": "WeatherMetrics"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "dimDateCleaned",
+						"type": "DatasetReference"
+					},
+					"name": "DimDateCleaned"
+				},
+				{
+					"dataset": {
+						"referenceName": "WeatherMetricsCleaned",
+						"type": "DatasetReference"
+					},
+					"name": "WeatherMetricsCleaned"
+				}
+			],
+			"transformations": [
+				{
+					"name": "Changedatetype"
+				},
+				{
+					"name": "DateHierarchy"
+				},
+				{
+					"name": "GenerateID"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          DateID as string,",
+				"          Date as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> DimDate",
+				"source(output(",
+				"          DateID as string,",
+				"          RegionID as string,",
+				"          AverageTemperature as string,",
+				"          Humidity as string,",
+				"          WindSpeed as string,",
+				"          Rainfall as string,",
+				"          SunshineHours as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> WeatherMetrics",
+				"DimDate cast(output(",
+				"          DateID as integer,",
+				"          Date as date 'yyyy-MM-dd'",
+				"     ),",
+				"     errors: true) ~> Changedatetype",
+				"Changedatetype derive(Year = year(Date),",
+				"          Month = month(Date),",
+				"          Day = dayOfMonth(Date)) ~> DateHierarchy",
+				"WeatherMetrics keyGenerate(output(ID as long),",
+				"     startAt: 1L,",
+				"     stepValue: 1L) ~> GenerateID",
+				"DateHierarchy sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     partitionFileNames:['DimDateCleaned'],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> DimDateCleaned",
+				"GenerateID sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> WeatherMetricsCleaned"
+			]
+		}
+	}
+}
