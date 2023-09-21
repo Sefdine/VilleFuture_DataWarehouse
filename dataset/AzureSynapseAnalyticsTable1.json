@@ -51,7 +51,7 @@
 		],
 		"typeProperties": {
 			"schema": "dbo",
-			"table": "FactWeatherMetrics"
+			"table": "Region"
 		}
 	}
 }
