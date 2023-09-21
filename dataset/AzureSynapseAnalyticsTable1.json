@@ -51,7 +51,7 @@
 		],
 		"typeProperties": {
 			"schema": "dbo",
-			"table": "Region"
+			"table": "DimRegion"
 		}
 	}
 }
