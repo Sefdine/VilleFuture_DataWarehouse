@@ -84,6 +84,7 @@
 				"     skipDuplicateMapOutputs: true) ~> DimDateCleaned",
 				"GenerateID sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
+				"     partitionFileNames:['WeatherMetrics'],",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> WeatherMetricsCleaned"
 			]
