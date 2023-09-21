@@ -3,99 +3,9 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "TransformedWeatherMetrics",
-				"type": "ExecuteWranglingDataflow",
-				"dependsOn": [
-					{
-						"activity": "TransformRegion",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"policy": {
-					"timeout": "0.12:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"dataflow": {
-						"referenceName": "TransformedWeatherMetrics",
-						"type": "DataFlowReference"
-					},
-					"compute": {
-						"coreCount": 8,
-						"computeType": "General"
-					},
-					"queries": [
-						{
-							"queryName": "UserQuery",
-							"dataflowSinks": [
-								{
-									"name": "UserQueryWeatherMetricsCleaned",
-									"dataset": {
-										"referenceName": "WeatherMetricsCleaned",
-										"type": "DatasetReference"
-									},
-									"script": "sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tpartitionFileNames:['WeatherMetricsCleaned'],\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> UserQueryWeatherMetricsCleaned"
-								}
-							]
-						}
-					]
-				}
-			},
-			{
-				"name": "TransformDate",
-				"type": "ExecuteWranglingDataflow",
-				"dependsOn": [],
-				"policy": {
-					"timeout": "0.12:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"dataflow": {
-						"referenceName": "TransformDate",
-						"type": "DataFlowReference"
-					},
-					"compute": {
-						"coreCount": 8,
-						"computeType": "General"
-					},
-					"queries": [
-						{
-							"queryName": "UserQuery",
-							"dataflowSinks": [
-								{
-									"name": "UserQuerydimDateCleaned",
-									"dataset": {
-										"referenceName": "dimDateCleaned",
-										"type": "DatasetReference"
-									},
-									"script": "sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tpartitionFileNames:['DimDateCleaned'],\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> UserQuerydimDateCleaned"
-								}
-							]
-						}
-					]
-				}
-			},
-			{
 				"name": "TransformRegion",
 				"type": "ExecuteWranglingDataflow",
-				"dependsOn": [
-					{
-						"activity": "TransformDate",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
+				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
 					"retry": 0,
@@ -128,6 +38,37 @@
 							]
 						}
 					]
+				}
+			},
+			{
+				"name": "Tranformation",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [
+					{
+						"activity": "TransformRegion",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "Tranformation",
+						"type": "DataFlowReference"
+					},
+					"compute": {
+						"coreCount": 8,
+						"computeType": "General"
+					},
+					"traceLevel": "Fine"
 				}
 			}
 		],
