@@ -1,5 +1,5 @@
 {
-	"name": "powerquery1",
+	"name": "TransformRegion",
 	"properties": {
 		"type": "WranglingDataFlow",
 		"typeProperties": {
