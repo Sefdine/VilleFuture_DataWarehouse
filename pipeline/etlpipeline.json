@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "VilleFutureWeather",
+				"name": "Tranformation",
 				"type": "ExecuteDataFlow",
 				"dependsOn": [],
 				"policy": {
@@ -16,8 +16,15 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataflow": {
-						"referenceName": "VilleFutureWeather",
+						"referenceName": "Tranformation",
 						"type": "DataFlowReference"
+					},
+					"staging": {
+						"linkedService": {
+							"referenceName": "blobstorageconnection",
+							"type": "LinkedServiceReference"
+						},
+						"folderPath": "output"
 					},
 					"compute": {
 						"coreCount": 8,

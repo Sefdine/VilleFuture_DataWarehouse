@@ -1,0 +1,26 @@
+{
+	"name": "AzureSynapseAnalyticsTableRegion",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "sefdinenassufAzureSynapseAnalytics",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlDWTable",
+		"schema": [
+			{
+				"name": "RegionID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "RegionName",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "FactWeatherMetrics"
+		}
+	}
+}
